@@ -1,5 +1,7 @@
 export type TCreateUser = {
   id?: string;
+  name: string;
+  surname: string;
   username: string;
   password: string;
   role_id?: string;

@@ -4,11 +4,11 @@ import { createAdminUser } from "../modules/user/user.model";
 import { sequelize } from "./config";
 
 export const sync = async () => {
-  await sequelize.sync({ force: false });
+  await sequelize.sync({ force: true });
 
   // Descomentar para hacer seed
-  // await createRoles();
-  // await createAdminUser();
-  // await createCategories();
+  await createRoles();
+  await createAdminUser();
+  await createCategories();
   console.log("All models were synchronized successfully.");
 };

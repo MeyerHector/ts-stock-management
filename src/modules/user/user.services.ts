@@ -20,6 +20,8 @@ class UserServices {
       const role = await RoleServices.getRole("employee");
       if (!role) return null;
       return await User.create({
+        name: user.name,
+        surname: user.surname,
         username: user.username,
         password: await HashServices.hashPass(user.password),
         role_id: role,

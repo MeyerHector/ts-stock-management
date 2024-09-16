@@ -24,6 +24,13 @@ class User extends Model {
 
   @AllowNull(false)
   @Column(DataType.STRING)
+  declare name: string;
+  @AllowNull(false)
+  @Column(DataType.STRING)
+  declare surname: string;
+
+  @AllowNull(false)
+  @Column(DataType.STRING)
   declare username: string;
 
   @AllowNull(false)
@@ -46,6 +53,8 @@ export const createAdminUser = async () => {
     const hashedPassword = await HashServices.hashPass("Admin.1");
 
     await User.create({
+      name: "admin nombre",
+      surname: "admin apellido",
       username: "Admin",
       password: hashedPassword,
       role_id: adminId,

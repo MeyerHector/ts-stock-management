@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 
-const schema = [
+export const schema = [
   body("username")
     .exists()
     .withMessage("El nombre de usuario es requerido")

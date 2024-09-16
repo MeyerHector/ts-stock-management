@@ -24,10 +24,10 @@ class ProductRoutes extends BaseRoutes {
     );
     this.router.post(
       "/product",
-      schema,
-      validateSchema,
       isToken,
       isEmployee,
+      schema,
+      validateSchema,
       (req: Request, res: Response) =>
         this.productControllers.createProduct(req, res)
     );
