@@ -5,9 +5,9 @@ import HashServices from "../../helpers/hash";
 class UserServices {
   constructor() {}
 
-  async findUserByEmail(email: string): Promise<User | null> {
+  async findByUsername(username: string): Promise<User | null> {
     try {
-      return await User.findOne({ where: { email } });
+      return await User.findOne({ where: { username } });
     } catch (error) {
       return null;
     }
@@ -15,13 +15,12 @@ class UserServices {
 
   async creteUser(user: TCreateUser): Promise<User | null> {
     try {
-      const isAccount = await this.findUserByEmail(user.email);
+      const isAccount = await this.findByUsername(user.username);
       if (isAccount) return null;
       const role = await RoleServices.getRole("employee");
       if (!role) return null;
       return await User.create({
-        name: user.name,
-        email: user.email,
+        username: user.username,
         password: await HashServices.hashPass(user.password),
         role_id: role,
       });

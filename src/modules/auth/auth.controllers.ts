@@ -10,7 +10,7 @@ class AuthControllers {
   async login(req: Request, res: Response): Promise<void> {
     try {
       const { credentials }: { credentials: TLogin } = req.body;
-      if (!credentials.email && credentials.password) {
+      if (!credentials.username && credentials.password) {
         throw new BadRequestError("Proporcione los datos requeridos");
       }
       const token = await AuthServices.login(credentials);

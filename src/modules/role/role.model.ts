@@ -12,7 +12,7 @@ import {
 } from "sequelize-typescript";
 import User from "../user/user.model";
 
-@Table
+@Table({ timestamps: false })
 class Role extends Model {
   @Default(UUIDV4)
   @PrimaryKey

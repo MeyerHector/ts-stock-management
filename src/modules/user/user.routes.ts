@@ -12,17 +12,11 @@ class UserRoutes extends BaseRoutes {
   }
 
   routes(): void {
-    this.router.post(
-      "/create-user",
-      isToken,
-      isAdmin,
-      (req: Request, res: Response) => this.userControllers.createUser(req, res)
+    this.router.post("/user", isToken, isAdmin, (req: Request, res: Response) =>
+      this.userControllers.createUser(req, res)
     );
-    this.router.get(
-      "/get-users",
-      isToken,
-      isAdmin,
-      (req: Request, res: Response) => this.userControllers.getUsers(req, res)
+    this.router.get("/users", isToken, isAdmin, (req: Request, res: Response) =>
+      this.userControllers.getUsers(req, res)
     );
   }
 }

@@ -24,12 +24,7 @@ class User extends Model {
 
   @AllowNull(false)
   @Column(DataType.STRING)
-  declare name: string;
-
-  @AllowNull(false)
-  @NotEmpty
-  @Column(DataType.STRING)
-  declare email: string;
+  declare username: string;
 
   @AllowNull(false)
   @NotEmpty
@@ -51,8 +46,7 @@ export const createAdminUser = async () => {
     const hashedPassword = await HashServices.hashPass("Admin.1");
 
     await User.create({
-      name: "Admin",
-      email: "admin@gmail.com",
+      username: "Admin",
       password: hashedPassword,
       role_id: adminId,
     });

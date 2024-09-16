@@ -28,15 +28,18 @@ class Product extends Model {
 
   @AllowNull(false)
   @ForeignKey(() => Category)
-  @Column(DataType.STRING)
+  @Column(DataType.UUID)
   declare category_id: string;
+
+  @BelongsTo(() => Category)
+  declare category: Category;
 
   @ForeignKey(() => User)
   @Column(DataType.UUID)
   declare user_id: string;
 
   @BelongsTo(() => User)
-  declare role: User;
+  declare user: User;
 
   @AllowNull(false)
   @Column(DataType.STRING)

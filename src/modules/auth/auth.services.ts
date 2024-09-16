@@ -10,8 +10,8 @@ class AuthService {
 
   async login(credentials: TLogin): Promise<string | unknown> {
     try {
-      const isUser: User | null = await UserServices.findUserByEmail(
-        credentials.email
+      const isUser: User | null = await UserServices.findByUsername(
+        credentials.username
       );
 
       if (!isUser) return;

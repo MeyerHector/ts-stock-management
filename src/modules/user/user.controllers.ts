@@ -14,7 +14,7 @@ class UserControllers {
       const createdUser = await UserServices.creteUser(user);
 
       if (!createdUser) {
-        throw new BadRequestError("Email ya registrado");
+        throw new BadRequestError("Nombre de usuario ya registrado");
       }
 
       res.status(201).json({ message: "Usuario generado con éxito" });

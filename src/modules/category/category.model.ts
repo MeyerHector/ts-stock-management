@@ -4,14 +4,14 @@ import {
   Column,
   DataType,
   Default,
-  ForeignKey,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
 import Product from "../product/product.model";
 
-@Table
+@Table({ timestamps: false })
 class Category extends Model {
   @Default(UUIDV4)
   @PrimaryKey
@@ -22,9 +22,25 @@ class Category extends Model {
   @Column(DataType.STRING)
   declare name: string;
 
-  @ForeignKey(() => Product)
-  @Column(DataType.UUID)
-  declare product_id: string;
+  @HasMany(() => Product)
+  declare products: Product[];
 }
 
+export const createCategories = async () => {
+  try {
+    await Category.bulkCreate([
+      { name: "Electrónica" },
+      { name: "Ropa" },
+      { name: "Hogar y Cocina" },
+      { name: "Libros" },
+      { name: "Juguetes y Juegos" },
+      { name: "Deportes y Aire Libre" },
+      { name: "Salud y Cuidado Personal" },
+      { name: "Automotriz" },
+    ]);
+    console.log("Categories created successfully.");
+  } catch (error) {
+    console.error("Error creating categories:", error);
+  }
+};
 export default Category;
