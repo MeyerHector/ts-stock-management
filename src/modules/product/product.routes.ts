@@ -3,6 +3,8 @@ import BaseRoutes from "../../helpers/route";
 import ProductControllers from "./product.controllers";
 import { isToken } from "../../middlewares/isToken";
 import { isEmployee } from "../../middlewares/isEmployee";
+import { schema } from "./product.schema";
+import { validateSchema } from "../../middlewares/validateSchema";
 
 class ProductRoutes extends BaseRoutes {
   public productControllers: ProductControllers;
@@ -22,6 +24,8 @@ class ProductRoutes extends BaseRoutes {
     );
     this.router.post(
       "/product",
+      schema,
+      validateSchema,
       isToken,
       isEmployee,
       (req: Request, res: Response) =>
