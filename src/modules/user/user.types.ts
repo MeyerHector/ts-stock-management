@@ -3,11 +3,11 @@ export type TCreateUser = {
   name: string;
   email: string;
   password: string;
-  role_id: string;
+  role_id?: string;
 };
 
-export type TUpdateUser = {
-  id?: string;
-  name: string;
-  email: string;
+export type TUpdateUser = Omit<TCreateUser, "password" | "role_id">;
+
+export type TUserId = {
+  id: string;
 };

@@ -13,6 +13,7 @@ import {
   NotEmpty,
 } from "sequelize-typescript";
 import Role from "../role/role.model";
+import RoleServices from "../role/role.services";
 
 @Table
 class User extends Model {
@@ -45,10 +46,7 @@ class User extends Model {
 
 export const createAdminUser = async () => {
   try {
-    const adminRole = await Role.findOne({ where: { name: "admin" } });
-    if (!adminRole) {
-      throw new Error("Admin role not found");
-    }
+    const adminId = await RoleServices.getRole("admin");
 
     const hashedPassword = await HashServices.hashPass("Admin.1");
 
@@ -56,7 +54,7 @@ export const createAdminUser = async () => {
       name: "Admin",
       email: "admin@gmail.com",
       password: hashedPassword,
-      role_id: adminRole.id,
+      role_id: adminId,
     });
     console.log("Admin user created successfully.");
   } catch (error) {

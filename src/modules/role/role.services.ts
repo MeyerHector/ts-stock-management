@@ -2,7 +2,7 @@ import Role from "./role.model";
 
 class RoleServices {
   constructor() {}
-  async getRole(name: string): Promise<String | null> {
+  async getRole(name: string): Promise<string | null> {
     try {
       const role = await Role.findOne({ where: { name } });
       if (!role) return null;

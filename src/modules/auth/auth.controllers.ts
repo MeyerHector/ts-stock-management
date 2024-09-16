@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import authServices from "./auth.services";
+import AuthServices from "./auth.services";
 import { TLogin } from "./auth.types";
-import { BadRequestError, InternalServerError } from "../../helpers/httpError";
+import { BadRequestError } from "../../helpers/httpError";
 import { HttpStatus } from "../../constants/HTTPERRORS";
 
 class AuthControllers {
@@ -9,11 +9,17 @@ class AuthControllers {
 
   async login(req: Request, res: Response): Promise<void> {
     try {
-      const credentials: TLogin = req.body;
-      const token = await authServices.login(credentials);
-      if (!token) {
-        new BadRequestError("Credenciales incorrectas");
+      const { credentials }: { credentials: TLogin } = req.body;
+      if (!credentials.email && credentials.password) {
+        throw new BadRequestError("Proporcione los datos requeridos");
       }
+      const token = await AuthServices.login(credentials);
+      console.log(token);
+      console.log("hola");
+      if (!token) {
+        throw new BadRequestError("Credenciales incorrectas");
+      }
+
       res.status(200).json(token);
     } catch (error) {
       if (error instanceof BadRequestError) {

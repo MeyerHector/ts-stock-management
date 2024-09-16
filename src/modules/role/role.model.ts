@@ -30,7 +30,7 @@ class Role extends Model {
 
 export const createRoles = async () => {
   try {
-    await Role.bulkCreate([{ name: "admin" }, { name: "user" }]);
+    await Role.bulkCreate([{ name: "admin" }, { name: "employee" }]);
     console.log("Roles created successfully.");
   } catch (error) {
     console.error("Error creating roles:", error);

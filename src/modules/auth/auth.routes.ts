@@ -11,9 +11,8 @@ class AuthRoutes extends BaseRoutes {
   }
 
   routes(): void {
-    this.router.post(
-      "/login",
-      this.authControllers.login.bind(this.authControllers)
+    this.router.post("/login", (req: Request, res: Response) =>
+      this.authControllers.login(req, res)
     );
   }
 }

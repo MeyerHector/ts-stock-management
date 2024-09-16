@@ -6,7 +6,7 @@ class HashServices {
     return await compare(pass, hashPass);
   }
 
-  async hashPass(pass: string): Promise<String> {
+  async hashPass(pass: string): Promise<string> {
     return await hash(pass, 10);
   }
 }

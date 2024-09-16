@@ -1,4 +1,4 @@
-import jwtServices from "../../helpers/jwt";
+import jwtServices from "../../helpers/jwt/jwt.services";
 import User from "../user/user.model";
 import hashServices from "../../helpers/hash";
 import UserServices from "../user/user.services";
@@ -8,36 +8,32 @@ import { TLogin } from "./auth.types";
 class AuthService {
   constructor() {}
 
-  async login(credentials: TLogin): Promise<String | unknown> {
+  async login(credentials: TLogin): Promise<string | unknown> {
     try {
       const isUser: User | null = await UserServices.findUserByEmail(
         credentials.email
       );
-      if (!isUser) throw { message: "El email no está registrado" };
+
+      if (!isUser) return;
 
       if (
         !(await hashServices.comparePass(credentials.password, isUser.password))
       ) {
-        throw { message: "Contraseña incorrecta" };
+        return;
       }
 
-      return jwtServices.createJWT(isUser.id);
+      return jwtServices.createJWT({ user_id: isUser.id });
     } catch (error) {
       return error;
     }
   }
 
-  async registerUser(user: TCreateUser): Promise<String | unknown> {
+  async registerUser(user: TCreateUser): Promise<string | unknown> {
     try {
-      const newUser: User | unknown = await UserServices.creteUser(user);
-      if (!newUser) {
-        throw {
-          message: "Hubo un error al registrar al usuario",
-        };
-      }
-      return { message: "Usuario registrado con éxito" };
+      const newUser: User | null = await UserServices.creteUser(user);
+      return newUser;
     } catch (error) {
-      return error;
+      return null;
     }
   }
 }
